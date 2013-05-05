@@ -1,10 +1,10 @@
-from src import abstract as pyinsane
+import src.abstract as pyinsane
 import sys
 
 # Set options
 name = 'epkowa:net:192.168.1.8'
 res = 300
-mode = 'Binary'
+mode = 'Gray'
 scan_area = 'Letter'
 
 # Get scanner instance
@@ -29,6 +29,11 @@ try:
 except EOFError:
     pass
 image = scan_instance.get_img()
+
+# Convert the image to mode "1" when doing Binary so the file size is smaller
+if (mode == 'Binary'):
+    print("Converting image...")
+    image = image.convert('1')
 
 # Set filename of output image
 filename = "{}_{}_{}_python".format(mode,res,scan_area)
